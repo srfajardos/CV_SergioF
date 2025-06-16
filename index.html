@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio Profesional | Sergio Ricardo Fajardo Sánchez</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals (Off-white, Charcoal, Muted Teal) -->
+    <!-- Application Structure Plan: A single-page app with a main navigation to scroll to thematic sections: 1) An interactive 'About Me' with selectable summaries to tailor the pitch. 2) A visual, expandable timeline for 'Career Path' to show progression without clutter. 3) A 'Skills' dashboard with categorized tags for a clean, modern assessment of capabilities. 4) A card-based grid for 'Projects' to showcase work. This structure transforms a linear CV into an exploratory experience, allowing users to drill down into areas of interest. -->
+    <!-- Visualization & Content Choices: - Professional Summaries -> Inform -> Interactive Text Block -> JS text-swap -> Allows tailoring the intro pitch. - Experience -> Show Change -> Vertical Timeline -> JS expand/collapse -> Shows career story, avoids info overload. - Skills -> Compare/Inform -> Categorized Tag Grid -> HTML/CSS Grid -> Provides a more aesthetic and organized view of competencies than a large chart. - Projects -> Organize -> Card Grid -> JS expand/collapse -> Clean portfolio presentation. All choices prioritize interaction and clarity over static lists. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #374151; /* gray-700 */
+            border: 4px solid #F3F4F6; /* gray-100 */
+        }
+        .skill-level-avanzado { background-color: #14B8A6; color: white; } /* teal-500 */
+        .skill-level-intermedio { background-color: #6B7280; color: white; } /* gray-500 */
+        .skill-level-basico { background-color: #D1D5DB; color: #374151; } /* gray-300 */
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="flex flex-col md:flex-row">
+        <header class="bg-gray-800 text-white md:w-64 md:min-h-screen p-6 flex flex-col justify-between sticky top-0 md:relative z-20">
+            <div>
+                <h1 class="text-2xl font-bold">Sergio Ricardo Fajardo Sánchez</h1>
+                <p class="text-sm text-gray-400 mt-2">InGeólogo | Especialista en Geomática y Gestión Ambiental</p>
+                <nav class="mt-10">
+                    <ul class="space-y-4">
+                        <li><a href="#inicio" class="block hover:text-teal-400 transition-colors duration-200">Inicio</a></li>
+                        <li><a href="#habilidades" class="block hover:text-teal-400 transition-colors duration-200">Habilidades Técnicas</a></li>
+                        <li><a href="#trayectoria" class="block hover:text-teal-400 transition-colors duration-200">Trayectoria Profesional</a></li>
+                        <li><a href="#proyectos" class="block hover:text-teal-400 transition-colors duration-200">Proyectos Destacados</a></li>
+                        <li><a href="#educacion" class="block hover:text-teal-400 transition-colors duration-200">Educación y Certificaciones</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="mt-10 md:mt-0">
+                <h3 class="text-lg font-semibold">Contacto</h3>
+                <div class="mt-4 space-y-2 text-sm">
+                     <p>sergio_fajardo@outlook.com</p>
+                     <p>+57 3202599940 Laboral <br> +57 3183766212 Personal</p>
+                     <a href="https://www.linkedin.com/in/sergiorfajardo" target="_blank" class="block text-teal-400 hover:text-teal-300">Perfil de LinkedIn</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 md:p-10">
+
+            <section id="inicio" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Perfil Profesional</h2>
+                 <p class="mb-6 text-gray-600">
+                    Bienvenido a mi portafolio profesional. Aquí presento un resumen de mi carrera, adaptable según el enfoque de interés. Por favor, seleccione el perfil que más se ajuste a su búsqueda para ver una descripción detallada de mi experiencia y capacidades en esa área.
+                </p>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div id="summary-buttons" class="flex flex-wrap gap-2 mb-4">
+                        <button data-summary="sig" class="summary-btn bg-teal-500 text-white py-2 px-4 rounded-md text-sm transition-transform transform hover:scale-105">SIG/Análisis de Datos</button>
+                        <button data-summary="geologia" class="summary-btn bg-gray-600 text-white py-2 px-4 rounded-md text-sm transition-transform transform hover:scale-105">Exploración Geológica</button>
+                        <button data-summary="ambiental" class="summary-btn bg-gray-600 text-white py-2 px-4 rounded-md text-sm transition-transform transform hover:scale-105">Gestión Ambiental</button>
+                        <button data-summary="general" class="summary-btn bg-gray-600 text-white py-2 px-4 rounded-md text-sm transition-transform transform hover:scale-105">Generalista</button>
+                    </div>
+                    <div id="summary-display" class="text-gray-700 min-h-[150px]">
+                    </div>
+                </div>
+            </section>
+            
+            <section id="habilidades" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Habilidades Técnicas</h2>
+                <p class="mb-6 text-gray-600">
+                    Esta sección ofrece un panorama de mis competencias técnicas, organizadas por áreas de especialización para una fácil visualización. Cada etiqueta representa una herramienta o tecnología, coloreada según mi nivel de dominio para una rápida identificación de mis capacidades.
+                </p>
+                <div id="skills-container" class="space-y-8">
+                </div>
+            </section>
+
+            <section id="trayectoria" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Trayectoria Profesional</h2>
+                <p class="mb-8 text-gray-600">
+                    A continuación, se detalla mi experiencia profesional en orden cronológico inverso. Cada rol representa una etapa clave en mi desarrollo. Haga clic en cada cargo para expandir y ver los logros más significativos, estructurados con la metodología STAR para mayor claridad sobre mi impacto en cada posición.
+                </p>
+                <div id="experience-timeline" class="relative border-l-2 border-gray-200 ml-5">
+                </div>
+            </section>
+
+            <section id="proyectos" class="mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Proyectos Destacados</h2>
+                 <p class="mb-8 text-gray-600">
+                    Aquí se presentan algunos de los proyectos más relevantes en los que he participado. Estos ejemplos ilustran la aplicación práctica de mis habilidades en contextos desafiantes. Cada tarjeta de proyecto se puede expandir para revelar los detalles del desafío, las acciones que tomé y los resultados obtenidos.
+                </p>
+                <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                </div>
+            </section>
+
+            <section id="educacion">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Educación y Certificaciones</h2>
+                 <p class="mb-8 text-gray-600">
+                    Mi formación académica y el aprendizaje continuo son pilares de mi desarrollo profesional. En esta sección se enumeran mis títulos universitarios, así como las certificaciones y cursos clave que he completado para mantenerme actualizado con las últimas tecnologías y metodologías de la industria.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div id="education-container" class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Formación Académica</h3>
+                        <ul class="space-y-4"></ul>
+                    </div>
+                    <div id="certs-container" class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Certificaciones y Cursos Clave</h3>
+                        <ul class="space-y-4"></ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const profileData = {
+                summaries: {
+                    sig: "Profesional en Geomática con más de 3 años de experiencia aplicando Sistemas de Información Geográfica (SIG) y análisis de datos para resolver desafíos territoriales. Experto en el desarrollo de modelos para el tratamiento de datos geoespaciales, automatización de procesos cartográficos y análisis espacial avanzado con ArcGIS Pro, QGIS y Python (ArcPy, Rasterio). Mi enfoque se centra en transformar datos complejos en información visual e impactante para optimizar la planificación y la toma de decisiones.",
+                    geologia: "Ingeniero Geólogo con especialización en Gestión Ambiental, enfocado en el sector minero. Cuento con experiencia práctica en la coordinación de proyectos de exploración, modelamiento geológico 3D con Leapfrog y la elaboración de informes técnicos (Planes de Trabajo y Obras) para la Agencia Nacional Minera, asegurando el cumplimiento de la normatividad colombiana y la estandarización de recursos bajo el código CRIRSCO.",
+                    ambiental: "Especialista en Gestión Ambiental con experiencia en la coordinación de proyectos minero-ambientales y de remediación. Mi capacidad para liderar equipos y aplicar herramientas como la fotogrametría con UAS para monitoreo, me permite diseñar e implementar medidas de mitigación y compensación efectivas, asegurando el 100% de cumplimiento regulatorio en los proyectos a mi cargo y gestionando desde la evaluación de impacto ambiental hasta la restauración ecológica.",
+                    general: "Gestor de proyectos con un perfil híbrido que integra la geología, la gestión ambiental y el análisis de datos geoespaciales. Aporto un historial comprobado de optimización de procesos, mejorando la eficiencia de proyectos en hasta un 15% y reduciendo los tiempos de entrega de cartografía en un 20%. Mi enfoque proactivo y mi dominio de herramientas como ArcGIS, Leapfrog y Python me permiten liderar proyectos desde la planificación hasta la ejecución, garantizando la sostenibilidad y el cumplimiento normativo."
+                },
+                skills: [
+                    {
+                        category: 'Software SIG y Teledetección',
+                        tools: [
+                            { name: 'ArcGIS (Pro, Online, Enterprise)', level: 'avanzado' },
+                            { name: 'QGIS', level: 'avanzado' },
+                            { name: 'Global Mapper', level: 'avanzado' },
+                            { name: 'Agisoft MetaShape', level: 'avanzado' },
+                            { name: 'Pix4D', level: 'intermedio' }
+                        ]
+                    },
+                    {
+                        category: 'Modelado Geológico',
+                        tools: [
+                            { name: 'Leapfrog', level: 'avanzado' },
+                            { name: 'Geovia Surpac', level: 'intermedio' },
+                            { name: 'Slide & RocScience', level: 'intermedio' }
+                        ]
+                    },
+                    {
+                        category: 'Análisis de Datos y Programación',
+                        tools: [
+                            { name: 'Python (ArcPy, Rasterio, Pandas)', level: 'intermedio' },
+                            { name: 'SQL (PostgreSQL/PostGIS)', level: 'basico' },
+                            { name: 'R', level: 'basico' }
+                        ]
+                    },
+                    {
+                        category: 'Software Adicional',
+                        tools: [
+                             { name: 'AutoCAD', level: 'intermedio' },
+                             { name: 'Revit & BIM', level: 'basico' }
+                        ]
+                    }
+                ],
+                experience: [
+                    {
+                        role: 'Coordinador de Proyecto / Geólogo de Campo',
+                        company: 'MingRock S.A.S',
+                        dates: 'Diciembre 2023 – Julio 2024',
+                        achievements: [
+                            {
+                                title: 'Optimización de la Gestión y Aprobación de Proyectos Mineros',
+                                situation: 'Se requería gestionar y asegurar la aprobación de 11 Planes de Trabajo y Obras (PTO) ante la Agencia Nacional Minera, enfrentando desafíos en la sustentación técnica y el cumplimiento normativo.',
+                                action: 'Implementé un flujo de trabajo digital que integró fotogrametría con UAS y GNSS para topografía de precisión, modelamiento geológico 3D en Leapfrog y cartografía temática en ArcGIS Pro para visualizar y analizar los datos.',
+                                result: 'Se mejoró la eficiencia en la gestión de los proyectos en un 15%, logrando la elaboración de informes técnicos robustos que aseguraron el cumplimiento normativo y facilitaron el proceso de aprobación.'
+                            }
+                        ]
+                    },
+                    {
+                        role: 'Profesional en SIG',
+                        company: 'INGICAT S.A.',
+                        dates: 'Marzo 2023 – Octubre 2023',
+                        achievements: [
+                             {
+                                title: 'Aceleración de Entregables Cartográficos',
+                                situation: 'El proyecto requería la generación masiva de cartografía para caracterizar zonas de servidumbre de líneas eléctricas, enfrentando el desafío de procesar grandes volúmenes de datos catastrales y prediales de manera eficiente.',
+                                action: 'Desarrollé y automaticé modelos de geoprocesamiento para el tratamiento y análisis de los datos geoespaciales, optimizando la generación de los productos cartográficos finales.',
+                                result: 'Se redujo el tiempo de entrega de la cartografía en un 20% y se mejoró la precisión de los mapas de servidumbre en un 15%, optimizando la planificación territorial del proyecto.'
+                            }
+                        ]
+                    },
+                    {
+                        role: 'Gestor Ambiental',
+                        company: 'Cuvica S.A.',
+                        dates: 'Noviembre 2022 – Enero 2023',
+                        achievements: [
+                            {
+                                title: 'Gestión Eficiente de Remediación Ambiental',
+                                situation: 'Era necesario ejecutar un plan de compensación ambiental para un área afectada por derrame de hidrocarburos en Puerto Boyacá, asegurando el cumplimiento de la normativa y la eficiencia en el tratamiento.',
+                                action: 'Diseñé e implementé un nuevo protocolo de muestreo de suelos en campo y coordiné el análisis de la información para el plan de tratamiento de compensación.',
+                                result: 'Se incrementó la eficiencia del análisis de muestras en un 18% y se logró el 100% del cumplimiento de las regulaciones ambientales durante la ejecución del proyecto.'
+                            }
+                        ]
+                    },
+                    {
+                        role: 'Analista de Petrografía',
+                        company: 'CDT S.A.S.',
+                        dates: 'Junio 2018 – Noviembre 2022',
+                        achievements: [
+                             {
+                                title: 'Mejora de Precisión y Eficiencia en Laboratorio',
+                                situation: 'El laboratorio buscaba optimizar sus procesos para aumentar la precisión en la identificación de menas en depósitos de esmeralda y la evaluación de contaminación en muestras de carbón.',
+                                action: 'Implementé mejoras en las técnicas de microscopía óptica y optimicé los procesos de preparación de muestras petrográficas.',
+                                result: 'Se aumentó la precisión de los análisis petrográficos en un 12% y se redujo el tiempo de preparación de muestras en un 15%.'
+                            }
+                        ]
+                    }
+                ],
+                projects: [
+                    {
+                        title: 'Modelado Geológico y Monitoreo Ambiental con UAS',
+                        context: 'Profesional | 2024',
+                        situation: 'Evaluar y sustentar técnicamente las solicitudes de regularización minera para su aprobación, asegurando la viabilidad geológica y el cumplimiento ambiental.',
+                        action: 'Usé fotogrametría con UAS para el monitoreo de impacto ambiental y la recolección de datos topográficos. Utilicé Leapfrog para desarrollar modelos geológicos 3D y ArcGIS Pro para la cartografía de soporte.',
+                        result: 'Generé informes técnicos robustos que mejoraron la eficiencia de la gestión de proyectos en un 15% y aseguraron el cumplimiento normativo.'
+                    },
+                    {
+                        title: 'Caracterización Geoespacial de Zonas de Servidumbre',
+                        context: 'Profesional | 2023',
+                        situation: 'Caracterizar las zonas de servidumbre para líneas eléctricas con alta precisión para optimizar la planificación territorial y el uso de recursos.',
+                        action: 'Desarrollé modelos en SIG para procesar y analizar grandes volúmenes de datos geoespaciales, catastrales y prediales.',
+                        result: 'Entregué cartografía de alta precisión con una reducción del 20% en los tiempos de entrega y una mejora del 15% en la exactitud de los mapas.'
+                    }
+                ],
+                education: [
+                    {
+                        degree: 'Especialización en Gestión Ambiental',
+                        institution: 'Universidad Pedagógica y Tecnológica de Colombia (UPTC)',
+                        year: '2023'
+                    },
+                    {
+                        degree: 'Ingeniería Geológica',
+                        institution: 'Universidad Pedagógica y Tecnológica de Colombia (UPTC)',
+                        year: '2022'
+                    },
+                    {
+                        degree: 'Misión Académica',
+                        institution: 'Universidade de São Paulo - Instituto de Geociências',
+                        year: '2018'
+                    }
+                ],
+                certifications: [
+                    { name: 'Piloto UAS (95 horas)', issuer: 'Escamérica Centro de Instrucción Aeronáutico', year: '2024' },
+                    { name: 'Drones for Environmental Science', issuer: 'Duke University (Coursera)', year: '2024' },
+                    { name: 'Cursos de ArcGIS (Dashboard, Pro, Teledetección)', issuer: 'Esri Colombia', year: '2023-2024' },
+                    { name: 'Fundamentos de Python', issuer: 'Platzi', year: '2023' },
+                    { name: 'Certificado RAC 100 para UAS', issuer: 'Aeronáutica Civil de Colombia', year: 'Vigente' },
+                    { name: 'Matrícula Profesional en Ingeniería Geológica', issuer: 'COPNIA', year: 'Vigente' },
+                ]
+            };
+
+            const summaryButtons = document.getElementById('summary-buttons');
+            const summaryDisplay = document.getElementById('summary-display');
+            
+            summaryDisplay.innerHTML = profileData.summaries.sig;
+
+            summaryButtons.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const summaryKey = e.target.dataset.summary;
+                    summaryDisplay.innerHTML = profileData.summaries[summaryKey];
+
+                    document.querySelectorAll('.summary-btn').forEach(btn => {
+                        btn.classList.remove('bg-teal-500');
+                        btn.classList.add('bg-gray-600');
+                    });
+                    e.target.classList.add('bg-teal-500');
+                    e.target.classList.remove('bg-gray-600');
+                }
+            });
+            
+            const skillsContainer = document.getElementById('skills-container');
+            profileData.skills.forEach(skillCategory => {
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'bg-white p-6 rounded-lg shadow-md';
+                
+                const categoryTitle = document.createElement('h3');
+                categoryTitle.className = 'text-xl font-semibold text-gray-800 mb-4';
+                categoryTitle.textContent = skillCategory.category;
+                categoryDiv.appendChild(categoryTitle);
+                
+                const toolsFlexContainer = document.createElement('div');
+                toolsFlexContainer.className = 'flex flex-wrap gap-3';
+                
+                skillCategory.tools.forEach(tool => {
+                    const toolTag = document.createElement('span');
+                    toolTag.className = `py-1 px-3 rounded-full text-sm font-medium skill-level-${tool.level}`;
+                    toolTag.textContent = tool.name;
+                    toolsFlexContainer.appendChild(toolTag);
+                });
+                
+                categoryDiv.appendChild(toolsFlexContainer);
+                skillsContainer.appendChild(categoryDiv);
+            });
+            
+            const timelineContainer = document.getElementById('experience-timeline');
+            profileData.experience.forEach(exp => {
+                const item = document.createElement('div');
+                item.className = 'timeline-item mb-8 ml-8';
+
+                const header = document.createElement('div');
+                header.className = 'cursor-pointer';
+                header.innerHTML = `
+                    <h3 class="text-lg font-semibold text-gray-900">${exp.role}</h3>
+                    <p class="text-md text-teal-600">${exp.company}</p>
+                    <p class="text-sm text-gray-500 mb-2">${exp.dates}</p>
+                `;
+
+                const details = document.createElement('div');
+                details.className = 'hidden mt-2 pl-4 border-l-2 border-gray-200';
+                
+                exp.achievements.forEach(ach => {
+                   details.innerHTML += `
+                        <div class="mb-3">
+                            <h4 class="font-semibold text-gray-800">${ach.title}</h4>
+                            <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Situación:</strong> ${ach.situation}</p>
+                            <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Acción:</strong> ${ach.action}</p>
+                            <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Resultado:</strong> ${ach.result}</p>
+                        </div>
+                   `;
+                });
+                
+                item.appendChild(header);
+                item.appendChild(details);
+                timelineContainer.appendChild(item);
+                
+                header.addEventListener('click', () => {
+                   details.classList.toggle('hidden');
+                   header.parentElement.classList.toggle('bg-teal-50');
+                });
+            });
+
+            const projectsContainer = document.getElementById('projects-container');
+            profileData.projects.forEach(proj => {
+                const card = document.createElement('div');
+                card.className = 'bg-white p-6 rounded-lg shadow-md transition-all duration-300';
+                
+                card.innerHTML = `
+                    <div class="cursor-pointer project-header">
+                        <h3 class="text-lg font-semibold text-gray-900">${proj.title}</h3>
+                        <p class="text-sm text-gray-500">${proj.context}</p>
+                    </div>
+                    <div class="project-details hidden mt-4 pt-4 border-t border-gray-200">
+                         <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Situación y Tarea:</strong> ${proj.situation}</p>
+                         <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Acción:</strong> ${proj.action}</p>
+                         <p class="text-sm text-gray-600 mt-1"><strong class="text-gray-700">Resultado:</strong> ${proj.result}</p>
+                    </div>
+                `;
+                projectsContainer.appendChild(card);
+                
+                card.querySelector('.project-header').addEventListener('click', () => {
+                    card.querySelector('.project-details').classList.toggle('hidden');
+                    card.classList.toggle('bg-gray-50');
+                });
+            });
+            
+            const educationList = document.querySelector('#education-container ul');
+            profileData.education.forEach(edu => {
+                const item = document.createElement('li');
+                item.className = 'border-l-4 border-teal-500 pl-4';
+                item.innerHTML = `
+                    <p class="font-semibold text-gray-800">${edu.degree}</p>
+                    <p class="text-sm text-gray-600">${edu.institution}</p>
+                    <p class="text-xs text-gray-500">${edu.year}</p>
+                `;
+                educationList.appendChild(item);
+            });
+            
+            const certsList = document.querySelector('#certs-container ul');
+            profileData.certifications.forEach(cert => {
+                const item = document.createElement('li');
+                item.className = 'border-l-4 border-gray-400 pl-4';
+                item.innerHTML = `
+                    <p class="font-semibold text-gray-800">${cert.name}</p>
+                    <p class="text-sm text-gray-600">${cert.issuer}</p>
+                    <p class="text-xs text-gray-500">${cert.year}</p>
+                `;
+                certsList.appendChild(item);
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
